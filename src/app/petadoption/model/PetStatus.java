@@ -7,19 +7,18 @@ package app.petadoption.model;
 
 /**
  *
- * @author User
+ * @author Philip
  */
-public class PetType {
-    
+public class PetStatus {
     private int id;
-    private String type;
+    private String status;
 
-    public PetType() {
+    public PetStatus() {
     }
 
-    public PetType(int id, String type) {
+    public PetStatus(int id, String status) {
         this.id = id;
-        this.type = type;
+        this.status = status;
     }
 
     public int getId() {
@@ -30,13 +29,14 @@ public class PetType {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStatus(String status) {
+        this.status = status;
     }
+    
     
     
 }
