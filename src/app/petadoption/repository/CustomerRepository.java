@@ -5,12 +5,12 @@
  */
 package app.petadoption.repository;
 
-import app.petadoption.model.Customer;
+
 import app.petadoption.model.Pet;
 import app.petadoption.model.PetStatus;
 import app.petadoption.model.PetType;
 import app.petadoption.model.Transaction;
-import app.petadoption.model.User;
+
 
 /**
  *
@@ -18,7 +18,7 @@ import app.petadoption.model.User;
  */
 public interface CustomerRepository extends GeneralRepository{
     
-    public void adoptPet(Transaction transaction,Pet pet, User user);
+    public void adoptPet(Transaction transaction,Pet pet);
     
-    public void surrenderPet(Transaction transaction,Pet pet, User user);
+    public void surrenderPet(Transaction transaction,Pet pet);
 }

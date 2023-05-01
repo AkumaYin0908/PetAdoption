@@ -16,5 +16,10 @@ public interface QueryConstants {
             + "left join tblpet_status on tblpet.status=tblpet_status.status_id";
     
     
+    public String SELECT_PETTYPE="SELECT * FROM tblpet_type";
+    
+    public String SELECT_PETSTATUS="SELECT * FROM tblpet_status";
+    
+    
     
 }

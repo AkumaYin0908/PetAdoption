@@ -7,7 +7,7 @@ package app.petadoption.repository;
 
 import app.petadoption.model.Pet;
 import app.petadoption.model.Transaction;
-import app.petadoption.model.User;
+
 
 /**
  *
@@ -18,7 +18,10 @@ public interface AdminRepository extends GeneralRepository {
     public void addPet(Pet pet);
     public void updatePet(Pet pet);
     public void dropPet(Pet pet);
+    public void viewAdoptionList(Transaction transaction);
+    public void viewSurrenderedPets(Transaction transaction);
     public void GenerateForm(Transaction transaction);
+   
     
     
 }

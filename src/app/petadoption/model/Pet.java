@@ -16,13 +16,13 @@ public class Pet {
     private int age;
     private Gender gender;
     private String description;
-    private PetType petType;
-    private PetStatus status;
+    private int petType;
+    private int status;
 
     public Pet() {
     }
 
-    public Pet(int petId, String name, int age, Gender gender, String description, PetType petType, PetStatus status) {
+    public Pet(int petId, String name, int age, Gender gender, String description, int petType, int status) {
         this.petId = petId;
         this.name = name;
         this.age = age;
@@ -72,21 +72,22 @@ public class Pet {
         this.description = description;
     }
 
-    public PetType getPetType() {
+    public int getPetType() {
         return petType;
     }
 
-    public void setPetType(PetType petType) {
+    public void setPetType(int petType) {
         this.petType = petType;
     }
 
-    public PetStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(PetStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
+
     
     
 

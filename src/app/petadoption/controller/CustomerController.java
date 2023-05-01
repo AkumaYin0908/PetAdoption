@@ -5,34 +5,24 @@
  */
 package app.petadoption.controller;
 
-import app.petadoption.model.Account;
+
 import app.petadoption.model.Pet;
 import app.petadoption.model.PetStatus;
 import app.petadoption.model.PetType;
 import app.petadoption.model.Transaction;
-import app.petadoption.model.User;
+
 import app.petadoption.repository.CustomerRepository;
 
 
 public class CustomerController implements CustomerRepository {
 
     @Override
-    public void adoptPet(Transaction transaction, Pet pet, User user) {
+    public void adoptPet(Transaction transaction, Pet pet) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void surrenderPet(Transaction transaction, Pet pet, User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void login(Account account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void logout(Account account) {
+    public void surrenderPet(Transaction transaction, Pet pet) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -41,6 +31,12 @@ public class CustomerController implements CustomerRepository {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void logout() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+  
  
 
   
