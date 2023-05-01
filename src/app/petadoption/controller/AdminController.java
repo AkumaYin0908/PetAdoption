@@ -11,16 +11,14 @@ import app.petadoption.model.Pet;
 import app.petadoption.model.PetStatus;
 import app.petadoption.model.PetType;
 import app.petadoption.model.Transaction;
-
 import app.petadoption.query.QueryConstants;
 import app.petadoption.repository.AdminRepository;
 import app.petadoption.view.MainForm;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -40,8 +38,8 @@ public class AdminController implements AdminRepository {
 
     @Override
     public void addPet(Pet pet) {
-       Map<Integer,String> typeChoices=new HashMap<>();
-        
+        Map<Integer, String> typeChoices = new HashMap<>();
+
         scanner = new Scanner(System.in);
         System.out.println("************************************** ADD PET **************************************");
         System.out.println("Enter name: ");
@@ -51,47 +49,87 @@ public class AdminController implements AdminRepository {
         pet.setAge(scanner.nextInt());
 
         System.out.println("Enter gender(M/F): ");
-        Gender gender = scanner.next().equals("M") ? Gender.MALE : Gender.FEMALE;
-        pet.setGender(gender);
+        switch (scanner.next()) {
+            case "M":
+                pet.setGender(Gender.MALE);
+                break;
+
+            case "F":
+                pet.setGender(Gender.FEMALE);
+                break;
+            default:
+                System.out.println("Invalid input. Please Try again");
+        }
 
         System.out.println("Enter description(Color, other details, etc. ): ");
         pet.setDescription(scanner.nextLine());
 
-        System.out.println("Enter choice from the given pet Type: ");
-        
-        //retrieving pet_type and will display as choices in the console
+        System.out.println("Choose from the given pet type: ");
+
+        //RETRIEVING PET_TYPE AND WILL DISPLAYED AS CHOICES
         try {
             statement = connection.getSqlConnection().prepareStatement(QueryConstants.SELECT_PETTYPE);
-            result=statement.executeQuery();
-            
-            while(result.next()){
-               typeChoices.put(result.getInt("type_id"), result.getString("type"));
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                typeChoices.put(result.getInt("type_id"), result.getString("type"));
             }
-            
-            for(Map.Entry<Integer,String> entry:typeChoices.entrySet()){
-                System.out.println("[" + entry.getKey()+"] " + entry.getValue());
-            }       
-            int choice=scanner.nextInt();
-            pet.setPetType(choice);
-         
-        } catch (SQLException ex) {
+
+            for (Map.Entry<Integer, String> entry : typeChoices.entrySet()) {
+                System.out.println("[" + entry.getKey() + "] " + entry.getValue());
+            }
+
+            int choice = scanner.nextInt();
+            if (typeChoices.containsKey(choice)) {
+                pet.setPetType(choice);
+            } else {
+                System.out.println("Invalid input");
+            }
+
+        } catch (SQLException | InputMismatchException ex) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //retrieving pet_status and will display as choices in the console
-          try {
+
+        System.out.println("Choose from the given pet status: ");
+
+        ////RETRIEVING PET_STATUS AND WILL DISPLAYED AS CHOICES
+        try {
             statement = connection.getSqlConnection().prepareStatement(QueryConstants.SELECT_PETSTATUS);
-            result=statement.executeQuery();
-            
-            while(result.next()){
-               typeChoices.put(result.getInt("status_id"), result.getString("status"));
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                typeChoices.put(result.getInt("status_id"), result.getString("status"));
             }
-            
-            for(Map.Entry<Integer,String> entry:typeChoices.entrySet()){
-                System.out.println("[" + entry.getKey()+"] " + entry.getValue());
-            }       
-            int choice=scanner.nextInt();
-            pet.setStatus(choice);
-         
+
+            for (Map.Entry<Integer, String> entry : typeChoices.entrySet()) {
+                System.out.println("[" + entry.getKey() + "] " + entry.getValue());
+            }
+            int choice = scanner.nextInt();
+
+            if (typeChoices.containsKey(choice)) {
+                pet.setStatus(choice);
+            } else {
+                System.out.println("Invalid input");
+            }
+
+        } catch (SQLException | InputMismatchException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            statement = connection.getSqlConnection().prepareStatement(QueryConstants.ADD_PET);
+            statement.setString(1, pet.getName());
+            statement.setInt(2, pet.getAge());
+            statement.setString(3, pet.getGender().toString());
+            statement.setString(4, pet.getDescription());
+            statement.setInt(5, pet.getPetType());
+            statement.setInt(6, pet.getStatus());
+            statement.executeUpdate();
+
+            System.out.println(pet.getName() + " has been added to the database successfully");
+            System.out.println("***************************************************************************************");
+            connection.getSqlConnection().close();
+            MainForm.init();
         } catch (SQLException ex) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }

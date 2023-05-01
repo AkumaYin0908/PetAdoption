@@ -21,5 +21,8 @@ public interface QueryConstants {
     public String SELECT_PETSTATUS="SELECT * FROM tblpet_status";
     
     
+    public String ADD_PET="INSERT INTO tblpet(name,age,gender,description,type,status) value(?,?,?,?,?,?)";
+    
+    
     
 }
